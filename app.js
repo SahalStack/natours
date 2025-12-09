@@ -7,6 +7,7 @@ const mongoSanitize = require('express-mongo-sanitize');
 const xss = require('xss-clean');
 const hpp = require('hpp');
 const cookieParser = require('cookie-parser');
+const compression = require('compression');
 
 //file importing
 const appError = require('./utils/appError');
@@ -92,8 +93,7 @@ app.use(
   }),
 );
 
-//serving static files (like images, css files, js files etc.)
-// app.use(express.static(`${__dirname}/public`));
+app.use(compression());
 
 //Test middleware
 app.use((req, res, next) => {
