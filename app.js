@@ -8,6 +8,7 @@ const xss = require('xss-clean');
 const hpp = require('hpp');
 const cookieParser = require('cookie-parser');
 const compression = require('compression');
+const cors = require('cors');
 
 //file importing
 const appError = require('./utils/appError');
@@ -23,6 +24,19 @@ app.enable('trust proxy');
 
 app.set('view engine', 'pug');
 app.set('views', path.join(__dirname, 'views'));
+
+//Implement CORS
+app.use(cors());
+
+// app.use(
+//   cors({
+//     origin: 'https://www.natours.com',
+//   }),
+// );
+
+//For Non-simple requests like (PATCH,DELETE,PUT) CORS Preflighted Request
+app.options('*', cors());
+// app.options('/api/v1/tours/:id', cors());
 
 //Global middleWares.
 app.use(express.static(path.join(__dirname, 'public')));
